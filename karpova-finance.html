@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ИП Карпова М.В. — Управленческий учёт для БФЛ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-light: #eff6ff;
+      --amber: #f59e0b;
+      --amber-light: #fffbeb;
+      --slate-900: #0f172a;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --green: #16a34a;
+      --red: #dc2626;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --radius-3xl: 2.5rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--slate-50);
+      color: var(--slate-900);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 0 1rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-name {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--blue);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .logo-sub {
+      font-size: 0.55rem;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+    .btn-contact {
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+      transition: background 0.18s, transform 0.1s;
+      text-decoration: none;
+    }
+    .btn-contact:hover { background: var(--blue-dark); }
+    .btn-contact:active { transform: scale(0.96); }
+
+    /* ── MAIN ── */
+    main { max-width: 72rem; margin: 0 auto; padding: 3rem 1rem; }
+
+    /* ── HERO ── */
+    .hero { text-align: center; margin-bottom: 4rem; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--slate-500);
+      max-width: 36rem;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* ── GRID INPUTS ── */
+    .inputs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 900px) {
+      .inputs-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--slate-100);
+      border-radius: var(--radius-3xl);
+      padding: 1.5rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .card-dark {
+      background: var(--slate-900);
+      border: none;
+      border-radius: var(--radius-3xl);
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-icon { flex-shrink: 0; }
+    .card-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .label-blue { color: var(--blue); }
+    .label-amber { color: var(--amber); }
+    .label-blue-muted { color: #60a5fa; }
+
+    .field { margin-bottom: 1.25rem; }
+    .field:last-child { margin-bottom: 0; }
+    .field-label {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin-bottom: 0.5rem;
+    }
+    .field-label-dark { color: #475569; }
+    .field-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 0.4rem;
+    }
+    .field-value-dark { color: var(--white); }
+    .field-value-muted { color: #94a3b8; }
+    .field-hint { font-size: 0.55rem; color: #475569; margin-top: 0.25rem; font-style: italic; }
+
+    /* sliders */
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 9999px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input[type="range"].blue {
+      background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--pct, 20%), #dbeafe var(--pct, 20%), #dbeafe 100%);
+      accent-color: var(--blue);
+    }
+    input[type="range"].amber {
+      background: linear-gradient(to right, var(--amber) 0%, var(--amber) var(--pct, 20%), #fef3c7 var(--pct, 20%), #fef3c7 100%);
+      accent-color: var(--amber);
+    }
+    input[type="range"].dark {
+      background: linear-gradient(to right, #3b82f6 0%, #3b82f6 var(--pct, 20%), #1e293b var(--pct, 20%), #1e293b 100%);
+      accent-color: #3b82f6;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      background: currentColor;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    input[type="range"].blue::-webkit-slider-thumb { background: var(--blue); }
+    input[type="range"].amber::-webkit-slider-thumb { background: var(--amber); }
+    input[type="range"].dark::-webkit-slider-thumb { background: #3b82f6; }
+
+    /* number inputs */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--slate-200);
+      border-radius: 0.625rem;
+      padding: 0.5rem 0.625rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      font-family: inherit;
+      outline: none;
+      color: var(--slate-900);
+      transition: border-color 0.15s;
+      background: var(--white);
+    }
+    input[type="number"]:focus { border-color: var(--blue); }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    /* ── RESULTS GRID ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 700px) {
+      .results-grid { grid-template-columns: 1fr; }
+    }
+
+    .card-result {
+      background: var(--white);
+      border: 1px solid var(--slate-100);
+      border-radius: 2.5rem;
+      padding: 2rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+    .card-result-blue {
+      background: var(--blue);
+      border-radius: 2.5rem;
+      padding: 2rem;
+      box-shadow: 0 8px 40px rgba(37,99,235,0.3);
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+    }
+    .card-result-blue::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 240px; height: 240px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .result-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .metric-big {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-100);
+      border-radius: 1rem;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .metric-big-label {
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-400);
+      margin-bottom: 0.3rem;
+    }
+    .metric-big-val {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--slate-800);
+      letter-spacing: -0.03em;
+    }
+
+    .metrics-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .metric-small {
+      border: 1px solid var(--slate-100);
+      border-radius: 1rem;
+      padding: 0.875rem 1rem;
+    }
+    .metric-small-label {
+      font-size: 0.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--slate-400);
+      margin-bottom: 0.3rem;
+      line-height: 1.4;
+    }
+    .metric-small-val {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+    .text-blue { color: var(--blue); }
+    .text-green-600 { color: var(--green); }
+
+    /* blue card metrics */
+    .opt-label {
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #93c5fd;
+      margin-bottom: 0.3rem;
+    }
+    .opt-val {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .divider { border-top: 1px solid rgba(255,255,255,0.12); margin: 1.5rem 0; }
+    .delta-label {
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #93c5fd;
+      margin-bottom: 0.5rem;
+    }
+    .delta-val {
+      font-size: 2.25rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+    .delta-positive { color: #86efac; }
+    .delta-negative { color: #fca5a5; }
+    .delta-hint {
+      font-size: 0.75rem;
+      color: #bfdbfe;
+      margin-top: 0.75rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ── LIKBEZ ── */
+    .likbez-wrap { max-width: 52rem; margin: 0 auto 5rem; }
+    .likbez {
+      background: var(--amber-light);
+      border: 1px solid #fde68a;
+      padding: 2rem;
+      border-radius: var(--radius-2xl);
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    @media (max-width: 600px) {
+      .likbez { flex-direction: column; gap: 1rem; }
+    }
+    .likbez-icon {
+      width: 3.5rem; height: 3.5rem;
+      background: #fef3c7;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .likbez-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 700;
+      color: #78350f;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.875rem;
+      line-height: 1.2;
+    }
+    .likbez-text {
+      color: #92400e;
+      font-size: 0.875rem;
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    .likbez-formula {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(253,230,138,0.5);
+      border-radius: 0.75rem;
+      padding: 0.875rem 1rem;
+    }
+    .likbez-formula-label {
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      margin-bottom: 0.4rem;
+    }
+    .likbez-formula-text {
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: #78350f;
+      font-weight: 700;
+    }
+
+    /* ── CTA ── */
+    .cta-wrap { max-width: 52rem; margin: 0 auto 5rem; }
+    .cta-card {
+      background: var(--white);
+      border: 1px solid var(--slate-100);
+      border-radius: 3rem;
+      padding: 3rem;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.07);
+      text-align: center;
+    }
+    @media (max-width: 600px) { .cta-card { padding: 2rem 1.25rem; } }
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-style: italic;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      text-align: left;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 600px) { .cta-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
+    .cta-item-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    .cta-item-desc { font-size: 0.8rem; color: var(--slate-500); padding-left: 1.75rem; line-height: 1.6; }
+    .btn-main {
+      background: var(--slate-900);
+      color: var(--white);
+      border: none;
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 800;
+      padding: 1.1rem 3.5rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
+      text-decoration: none;
+    }
+    .btn-main:hover { background: #000; box-shadow: 0 12px 40px rgba(0,0,0,0.28); }
+    .btn-main:active { transform: scale(0.97); }
+    .btn-main svg { transition: transform 0.18s; }
+    .btn-main:hover svg { transform: translateX(4px); }
+    .cta-note { margin-top: 1.5rem; color: var(--slate-400); font-size: 0.72rem; font-style: italic; }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+      border-top: 1px solid var(--slate-200);
+      color: var(--slate-400);
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      footer { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--slate-700);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── SVG ICONS inline ── */
+    svg { display: inline-block; vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo-name">ИП Карпова М.В.</div>
+      <div class="logo-sub">управленческий учёт для бфл</div>
+    </div>
+    <a href="https://t.me/Margonius" target="_blank" class="btn-contact">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      Связаться
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Финмодель готова. Пора оптимизировать <span>капитал</span></h1>
+    <p>калькулятор эффективности поможет увидеть: сколько денег «застряло» в текущих процессах и как высвободить их для роста.</p>
+  </section>
+
+  <!-- INPUTS -->
+  <section class="inputs-grid">
+
+    <!-- Column 1 -->
+    <div class="card">
+      <div class="card-header">
+        <svg class="card-icon label-blue" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+        </svg>
+        <span class="card-label label-blue">Текущие продажи</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Выручка (за период)</label>
+        <input type="range" id="revenue" class="blue" min="500000" max="20000000" step="50000" value="2000000" />
+        <div class="field-value" id="revenue-display">2 000 000 ₽</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Валовая прибыль</label>
+        <input type="range" id="grossProfit" class="blue" min="100000" max="15000000" step="50000" value="1200000" />
+        <div class="field-value" id="grossProfit-display">1 200 000 ₽</div>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="card">
+      <div class="card-header">
+        <svg class="card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+        </svg>
+        <span class="card-label label-amber">Оборотные средства</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Дебиторка (ДЗ)</label>
+        <input type="range" id="receivables" class="amber" min="400000" max="50000000" step="50000" value="8000000" />
+        <div class="field-value" id="receivables-display">8 000 000 ₽</div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <label class="field-label">Запасы</label>
+          <input type="number" id="inventory" value="100000" />
+        </div>
+        <div>
+          <label class="field-label">Кредиторка</label>
+          <input type="number" id="payables" value="150000" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="card-dark">
+      <div class="card-header">
+        <svg class="card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span class="card-label" style="color:#60a5fa;">Цели развития</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label field-label-dark">Целевая выручка</label>
+        <input type="range" id="targetRevenue" class="dark" min="1000000" max="50000000" step="100000" value="3000000" />
+        <div class="field-value field-value-dark" id="targetRevenue-display">3 000 000 ₽</div>
+      </div>
+
+      <div class="field">
+        <label class="field-label field-label-dark">Целевая валовая прибыль</label>
+        <div class="field-value field-value-muted" id="targetGrossProfit-display">1 800 000 ₽</div>
+        <p class="field-hint">рассчитывается автоматически на основе текущей маржинальности.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results-grid">
+
+    <div class="card-result">
+      <div class="result-header">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="result-title">диагностика «здесь и сейчас»</div>
+      </div>
+
+      <div class="metric-big">
+        <div class="metric-big-label">сумма замороженных средств (WC)</div>
+        <div class="metric-big-val" id="wc-display">7 950 000 ₽</div>
+      </div>
+
+      <div class="metrics-two">
+        <div class="metric-small">
+          <div class="metric-small-label">выручка на 1 руб. капитала</div>
+          <div class="metric-small-val text-blue" id="ratio1-display">0.25 ₽</div>
+        </div>
+        <div class="metric-small">
+          <div class="metric-small-label">прибыль на 1 руб. капитала</div>
+          <div class="metric-small-val text-green-600" id="ratio2-display">15.1 %</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-result-blue">
+      <div class="result-header">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#bfdbfe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <div class="result-title">блок оптимизации (прогноз)</div>
+      </div>
+
+      <div>
+        <div class="opt-label">оптимальный рабочий капитал</div>
+        <div class="opt-val" id="optWc-display">11 925 000 ₽</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div>
+        <div class="delta-label">высвобождение / дозагрузка:</div>
+        <div class="delta-val" id="delta-display">−3 975 000 ₽</div>
+        <p class="delta-hint" id="delta-hint">необходимо дополнительное финансирование для достижения целевой выручки.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- LIKBEZ -->
+  <section class="likbez-wrap">
+    <div class="likbez">
+      <div class="likbez-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <div>
+        <div class="likbez-title">ликбез: что такое оборотный капитал?</div>
+        <p class="likbez-text">
+          если просто: это деньги, которые «крутятся» в вашем бизнесе прямо сейчас. они уже не ваши (вы их потратили на офис, маркетинг и юристов) и ещё не ваши (клиенты их ещё не доплатили по рассрочке). это «топливо» в баке: оно уже оплачено, но его нельзя вытащить и потратить на личные нужды, пока компания едет.
+        </p>
+        <div class="likbez-formula">
+          <div class="likbez-formula-label">формула расчёта:</div>
+          <div class="likbez-formula-text">дебиторка + запасы − кредиторка = оборотный капитал</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-wrap">
+    <div class="cta-card">
+      <div class="cta-title">условия перехода к управлению</div>
+      <div class="cta-grid">
+        <div>
+          <div class="cta-item-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Внедрение за 60 000 ₽
+          </div>
+          <div class="cta-item-desc">полный цикл настройки ддс, опиу и баланса в течение 3 месяцев.</div>
+        </div>
+        <div>
+          <div class="cta-item-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Поддержка за 10 000 ₽ / мес
+          </div>
+          <div class="cta-item-desc">сопровождение, разбор отклонений и помощь в принятии решений.</div>
+        </div>
+      </div>
+
+      <a href="https://t.me/Margonius" target="_blank" class="btn-main">
+        Связаться
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+      <p class="cta-note">напишите марии васильевне в телеграм @Margonius, чтобы обсудить график внедрения.</p>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">ИП Карпова Мария Васильевна</div>
+    <div>внедрение управленческого учёта и финансовый консалтинг для бфл.</div>
+  </div>
+  <div>© 2024 все права защищены.</div>
+</footer>
+
+<script>
+  // ── helpers ──
+  const fmt = (v) =>
+    new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'RUB',
+      maximumFractionDigits: 0,
+    }).format(v);
+
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+  // slider progress fill
+  function updateSliderFill(el) {
+    const min = +el.min, max = +el.max, val = +el.value;
+    const pct = ((val - min) / (max - min)) * 100;
+    el.style.setProperty('--pct', pct + '%');
+  }
+
+  // ── state ──
+  const state = {
+    revenue: 2000000,
+    grossProfit: 1200000,
+    receivables: 8000000,
+    inventory: 100000,
+    payables: 150000,
+    targetRevenue: 3000000,
+  };
+
+  // ── compute & render ──
+  function compute() {
+    const { revenue, grossProfit, receivables, inventory, payables, targetRevenue } = state;
+
+    const wc = receivables + inventory - payables;
+    const ratio1 = revenue > 0 ? wc / revenue : 0;
+    const ratio2 = wc > 0 ? (grossProfit / wc) * 100 : 0;
+
+    // auto target gross profit based on current margin
+    const margin = revenue > 0 ? grossProfit / revenue : 0;
+    const targetGrossProfit = margin * targetRevenue;
+
+    const optWc = ratio1 * targetRevenue;
+    const delta = wc - optWc;
+
+    return { wc, ratio1, ratio2, targetGrossProfit, optWc, delta };
+  }
+
+  function render() {
+    const r = compute();
+
+    document.getElementById('wc-display').textContent = fmt(r.wc);
+    document.getElementById('ratio1-display').textContent = r.ratio1.toFixed(2) + ' ₽';
+    document.getElementById('ratio2-display').textContent = r.ratio2.toFixed(1) + ' %';
+    document.getElementById('targetGrossProfit-display').textContent = fmt(r.targetGrossProfit);
+    document.getElementById('optWc-display').textContent = fmt(r.optWc);
+
+    const deltaEl = document.getElementById('delta-display');
+    const hintEl = document.getElementById('delta-hint');
+    deltaEl.textContent = (r.delta >= 0 ? '+' : '') + fmt(r.delta);
+    deltaEl.className = 'delta-val ' + (r.delta >= 0 ? 'delta-positive' : 'delta-negative');
+    hintEl.textContent = r.delta >= 0
+      ? 'это сумма, которую можно вывести из оборота без потери темпов роста бизнеса.'
+      : 'необходимо дополнительное финансирование для достижения целевой выручки.';
+  }
+
+  // ── bind sliders ──
+  function bindSlider(id, stateKey, displayId) {
+    const el = document.getElementById(id);
+    const disp = document.getElementById(displayId);
+    updateSliderFill(el);
+    el.addEventListener('input', () => {
+      state[stateKey] = +el.value;
+      disp.textContent = fmt(+el.value);
+      updateSliderFill(el);
+      render();
+    });
+  }
+
+  bindSlider('revenue',       'revenue',       'revenue-display');
+  bindSlider('grossProfit',   'grossProfit',   'grossProfit-display');
+  bindSlider('receivables',   'receivables',   'receivables-display');
+  bindSlider('targetRevenue', 'targetRevenue', 'targetRevenue-display');
+
+  // ── bind number inputs ──
+  function bindNumber(id, stateKey) {
+    const el = document.getElementById(id);
+    el.addEventListener('input', () => {
+      state[stateKey] = +el.value || 0;
+      render();
+    });
+  }
+
+  bindNumber('inventory', 'inventory');
+  bindNumber('payables',  'payables');
+
+  // ── initial render ──
+  render();
+</script>
+</body>
+</html>
